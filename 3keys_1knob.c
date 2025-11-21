@@ -135,7 +135,7 @@ void main(void)
 
   for (uint8_t i = 0; i < LED_COUNT; i++)
   {
-    statuses[i] = (struct LedStatus)COLOR_OFF;
+    clear_status(i);
   }
 
   // Internal status update: LED 0 is orange on boot
