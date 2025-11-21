@@ -137,6 +137,19 @@ __code uint8_t ReportDescr[] ={
     0x95, 0x04,                    //   REPORT_COUNT (4)
     0x75, 0x10,                    //   REPORT_SIZE (16)
     0x81, 0x00,                    //   INPUT (Data,Ary,Abs)
+    0xc0,                          // END_COLLECTION
+
+    // Vendor-defined status update OUT report
+    0x06, 0x00, 0xff,              // USAGE_PAGE (Vendor Defined 0xFF00)
+    0x09, 0x01,                    // USAGE (Vendor Usage 1)
+    0xa1, 0x01,                    // COLLECTION (Application)
+    0x85, 0x03,                    //   REPORT_ID (3)
+    0x15, 0x00,                    //   LOGICAL_MINIMUM (0)
+    0x26, 0xff, 0x00,              //   LOGICAL_MAXIMUM (255)
+    0x75, 0x08,                    //   REPORT_SIZE (8)
+    0x95, 0x04,                    //   REPORT_COUNT (4)
+    0x09, 0x01,                    //   USAGE (Vendor Usage 1)
+    0x91, 0x02,                    //   OUTPUT (Data,Var,Abs)
     0xc0                           // END_COLLECTION
 };
 

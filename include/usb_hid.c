@@ -8,6 +8,9 @@
 #include "usb_descr.h"
 #include "usb_handler.h"
 
+// Provided by the main application to update LED status colors
+void set_status(uint8_t index, uint8_t r, uint8_t g, uint8_t b);
+
 // ===================================================================================
 // Variables and Defines
 // ===================================================================================
@@ -66,4 +69,13 @@ void HID_EP1_IN(void) {
 
 // Endpoint 2 OUT handler (HID report transfer from host)
 void HID_EP2_OUT(void) {                                    // auto response
+  uint8_t len = USB_RX_LEN;
+
+  if(len >= 5 && EP2_buffer[0] == 0x03) {
+    // Report ID 3: vendor-defined LED status update (index, R, G, B)
+    set_status(EP2_buffer[1], EP2_buffer[2], EP2_buffer[3], EP2_buffer[4]);
+  }
+
+  // Re-arm the OUT endpoint for the next transfer
+  UEP2_CTRL = UEP2_CTRL & ~MASK_UEP_R_RES | UEP_R_RES_ACK;
 }
